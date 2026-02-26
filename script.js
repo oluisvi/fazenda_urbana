@@ -12,7 +12,7 @@ document.getElementById('btnLogoutModal').addEventListener('click', () => openMo
 
 
 function confirmLogout() {
-    window.location.href = 'login.html';
+    window.location.href = 'index.html';
 }
 
 // 2. Menu Mobile Toggle
