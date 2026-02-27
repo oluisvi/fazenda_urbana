@@ -69,6 +69,17 @@ db.serialize(() => {
   }
     });
 
+    // Criar usuário padrão se não existir
+db.get("SELECT * FROM usuarios WHERE email = ?", ["user@user.com"], (err, row) => {
+  if (!row) {
+    db.run(`
+      INSERT INTO usuarios (nome, email, senha, role)
+      VALUES (?, ?, ?, ?)
+    `, ["Usuário Padrão", "user@user.com", "1234", "user"]);
+    console.log("Usuário padrão criado 🚀");
+  }
+});
+
 });
 
 app.post('/login', (req, res) => {
