@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | UrbanFarm OS</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#10b981" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("service-worker.js")
+          .then(() => console.log("Service Worker registrado!"))
+          .catch((err) => console.log("Erro no SW:", err));
+      }
+    </script>
+  </head>
+  <body class="login-body">
+    <div class="card login-card">
+      <div class="logo login-logo">
+        <i class="ph ph-leaf"></i>
+        <span>UrbanFarm</span>
+      </div>
+      <h2>Bem-vindo de volta</h2>
+      <p class="subtitle">Acesse o painel de controle da fazenda</p>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label>E-mail ou Usuário</label>
+          <input type="email" placeholder="exemplo@urbanfarm.com" required />
+        </div>
+        <div class="form-group">
+          <label>Senha</label>
+          <input type="password" placeholder="••••••••" required />
+        </div>
+        <button type="submit" class="btn-login">Entrar no Sistema</button>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const email = document.querySelector("input[type='email']").value;
+          const senha = document.querySelector("input[type='password']").value;
+
+          try {
+            const response = await fetch("http://localhost:3000/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ email, senha }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+              alert(data.erro || "Erro no login");
+              return;
+            }
+
+            // salva usuário logado
+            localStorage.setItem("usuario", JSON.stringify(data));
+
+            // redireciona
+            window.location.href = "/frontend/dashboard.html";
+          } catch (error) {
+            alert("Erro ao conectar com o servidor");
+            console.error(error);
+          }
+        });
+    </script>
+  </body>
