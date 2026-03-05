@@ -1,0 +1,173 @@
+/* =======================================
+   📦 CARD PADRÃO
+======================================= */
+
+.card {
+    background: #1e293b;
+    padding: 2rem;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.card h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.2rem;
+    color: #f1f5f9;
+}
+
+
+/* =======================================
+   📝 FORMULÁRIO
+======================================= */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input {
+    padding: 0.75rem;
+    border-radius: 10px;
+    border: 1px solid #334155;
+    background: #0f172a;
+    color: #f8fafc;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #10b981;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+
+/* =======================================
+   🟢 BOTÃO PRINCIPAL
+======================================= */
+
+.btn-primary {
+    margin-top: 1.5rem;
+    padding: 0.9rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    background: #10b981;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-primary:hover {
+    background: #059669;
+}
+
+
+/* =======================================
+   📊 TABELA
+======================================= */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.tabela-fornecedores {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.tabela-fornecedores thead {
+    background: #0f172a;
+}
+
+.tabela-fornecedores th {
+    text-align: left;
+    padding: 1rem;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.tabela-fornecedores td {
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: #e2e8f0;
+    border-top: 1px solid #334155;
+}
+
+.tabela-fornecedores tbody tr:hover {
+    background: rgba(16, 185, 129, 0.05);
+}
+
+
+/* =======================================
+   🛠 BOTÕES DE AÇÃO
+======================================= */
+
+.btn-edit,
+.btn-delete {
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 0.75rem;
+    cursor: pointer;
+    margin-right: 0.4rem;
+    transition: 0.2s;
+}
+
+.btn-edit {
+    background: #3b82f6;
+    color: white;
+}
+
+.btn-edit:hover {
+    background: #2563eb;
+}
+
+.btn-delete {
+    background: #ef4444;
+    color: white;
+}
+
+.btn-delete:hover {
+    background: #dc2626;
+}
+
+
+/* =======================================
+   📱 RESPONSIVO
+======================================= */
+
+@media (max-width: 768px) {
+
+    .card {
+        padding: 1.2rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .btn-edit,
+    .btn-delete {
+        margin-bottom: 0.3rem;
+    }
+
+}

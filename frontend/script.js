@@ -1,6 +1,6 @@
-// ===============================
+// =====================================================
 // 🔐 1. PROTEÇÃO DE ACESSO
-// ===============================
+// =====================================================
 
 const usuario = JSON.parse(localStorage.getItem("usuario"));
 
@@ -9,13 +9,27 @@ if (!usuario) {
 }
 
 
-// ===============================
-// 👤 2. QUANDO A PÁGINA CARREGAR
-// ===============================
+// =====================================================
+// 🚀 2. INICIALIZAÇÃO GERAL
+// =====================================================
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    // Atualiza nome na sidebar
+    atualizarUsuarioUI();
+    controlarMenuAtivo();
+    inicializarModais();
+    inicializarMenuMobile();
+    carregarDashboard(); // Só executa se existir gráfico
+
+});
+
+
+// =====================================================
+// 👤 3. ATUALIZAÇÃO DA UI DO USUÁRIO
+// =====================================================
+
+function atualizarUsuarioUI() {
+
     const nomeSidebar = document.querySelector(".user-text strong");
     const cargoSidebar = document.querySelector(".user-text span");
 
@@ -28,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 : "Usuário";
     }
 
-    // Atualiza modal de perfil
     const profileDetails = document.querySelector(".profile-detail");
 
     if (profileDetails) {
@@ -39,20 +52,37 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
     }
 
-    // 🛡️ Controle de permissão (usuário comum não vê algumas opções)
+    // 🛡️ Controle de permissão (oculta menu se não for admin)
     if (usuario.role !== "admin") {
-        const fornecedores = document.querySelector(".menu-item:nth-child(3)");
-        const clientes = document.querySelector(".menu-item:nth-child(4)");
+        const fornecedores = document.querySelector(".menu a[href='fornecedores.html']");
+        const clientes = document.querySelector(".menu a[href='clientes.html']");
 
         if (fornecedores) fornecedores.style.display = "none";
         if (clientes) clientes.style.display = "none";
     }
-});
+}
 
 
-// ===============================
-// 🪟 3. CONTROLE DE MODAIS
-// ===============================
+// =====================================================
+// 📌 4. CONTROLE DE MENU ATIVO
+// =====================================================
+
+function controlarMenuAtivo() {
+
+    const currentPage = window.location.pathname.split("/").pop();
+
+    document.querySelectorAll(".menu-item").forEach(item => {
+        const link = item.getAttribute("href");
+        if (link === currentPage) {
+            item.classList.add("active");
+        }
+    });
+}
+
+
+// =====================================================
+// 🪟 5. CONTROLE DE MODAIS (PERFIL / LOGOUT)
+// =====================================================
 
 function openModal(id) {
     const modal = document.getElementById(id);
@@ -64,21 +94,83 @@ function closeModal(id) {
     if (modal) modal.style.display = "none";
 }
 
-const btnUserModal = document.getElementById('btnUserModal');
-const btnLogoutModal = document.getElementById('btnLogoutModal');
+function inicializarModais() {
 
-if (btnUserModal) {
-    btnUserModal.addEventListener('click', () => openModal('userModal'));
+    const btnUserModal = document.getElementById("btnUserModal");
+    const btnLogoutModal = document.getElementById("btnLogoutModal");
+
+    if (btnUserModal) {
+        btnUserModal.addEventListener("click", () => openModal("userModal"));
+    }
+
+    if (btnLogoutModal) {
+        btnLogoutModal.addEventListener("click", () => openModal("logoutModal"));
+    }
 }
 
-if (btnLogoutModal) {
-    btnLogoutModal.addEventListener('click', () => openModal('logoutModal'));
+
+// =====================================================
+// ⚠️ 6. MODAL GLOBAL DE CONFIRMAÇÃO (CRUD)
+// =====================================================
+
+let confirmCallback = null;
+
+function openActionModal({
+    title = "Confirmar ação",
+    message = "Deseja continuar?",
+    confirmText = "Confirmar",
+    type = "danger",
+    onConfirm
+}) {
+
+    const titleEl = document.getElementById("modalTitle");
+    const messageEl = document.getElementById("modalMessage");
+    const icon = document.getElementById("modalIcon");
+    const confirmBtn = document.getElementById("modalConfirmBtn");
+    const modal = document.getElementById("actionModal");
+
+    if (!modal) return;
+
+    titleEl.innerText = title;
+    messageEl.innerText = message;
+
+    confirmBtn.innerText = confirmText;
+    confirmBtn.style.background = "";
+
+    if (type === "danger") {
+        icon.className = "ph ph-warning-circle";
+        icon.style.color = "#ef4444";
+        confirmBtn.style.background = "#ef4444";
+    }
+
+    if (type === "success") {
+        icon.className = "ph ph-check-circle";
+        icon.style.color = "#10b981";
+        confirmBtn.style.background = "#10b981";
+    }
+
+    confirmCallback = onConfirm;
+
+    modal.style.display = "flex";
 }
 
+function closeActionModal() {
+    const modal = document.getElementById("actionModal");
+    if (modal) modal.style.display = "none";
+    confirmCallback = null;
+}
 
-// ===============================
-// 🚪 4. LOGOUT REAL
-// ===============================
+document.addEventListener("click", function (e) {
+    if (e.target && e.target.id === "modalConfirmBtn") {
+        if (confirmCallback) confirmCallback();
+        closeActionModal();
+    }
+});
+
+
+// =====================================================
+// 🚪 7. LOGOUT
+// =====================================================
 
 function confirmLogout() {
     localStorage.removeItem("usuario");
@@ -86,66 +178,85 @@ function confirmLogout() {
 }
 
 
-// ===============================
-// 📱 5. MENU MOBILE
-// ===============================
+// =====================================================
+// 📱 8. MENU MOBILE
+// =====================================================
 
-const menuToggle = document.getElementById('menuToggle');
-const sidebar = document.getElementById('sidebar');
+function inicializarMenuMobile() {
 
-if (menuToggle && sidebar) {
-    menuToggle.addEventListener('click', () => {
-        sidebar.classList.toggle('active');
+    const menuToggle = document.getElementById("menuToggle");
+    const sidebar = document.getElementById("sidebar");
 
-        const icon = menuToggle.querySelector('i');
+    if (!menuToggle || !sidebar) return;
+
+    menuToggle.addEventListener("click", () => {
+
+        sidebar.classList.toggle("active");
+
+        const icon = menuToggle.querySelector("i");
         if (icon) {
-            icon.classList.toggle('ph-list');
-            icon.classList.toggle('ph-x');
+            icon.classList.toggle("ph-list");
+            icon.classList.toggle("ph-x");
         }
     });
 }
 
 
-// ===============================
-// 📊 6. GRÁFICO (Chart.js)
-// ===============================
+// =====================================================
+// 📊 9. DASHBOARD REAL (API)
+// =====================================================
 
-const chartElement = document.getElementById('productionChart');
+let grafico;
 
-if (chartElement) {
-    const ctx = chartElement.getContext('2d');
+async function carregarDashboard() {
 
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-            datasets: [{
-                label: 'Produção (Kg)',
-                data: [45, 59, 80, 81, 56, 95, 120],
-                borderColor: '#10b981',
-                backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                fill: true,
-                tension: 0.4,
-                pointRadius: 5,
-                pointHoverRadius: 8
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { display: false }
+    const chartElement = document.getElementById("productionChart");
+    if (!chartElement) return;
+
+    try {
+
+        const response = await fetch("http://localhost:3000/dashboard");
+        const data = await response.json();
+
+        const totalProducoesEl = document.getElementById("totalProducoes");
+        const totalKgEl = document.getElementById("totalKg");
+
+        if (totalProducoesEl)
+            totalProducoesEl.textContent = data.totalProducoes;
+
+        if (totalKgEl)
+            totalKgEl.textContent = data.totalKg + " Kg";
+
+        const labels = data.porProduto.map(p => p.produto || "Sem nome");
+        const valores = data.porProduto.map(p => p.total);
+
+        const ctx = chartElement.getContext("2d");
+
+        if (grafico) {
+            grafico.destroy();
+        }
+
+        grafico = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Produção por Produto (Kg)",
+                    data: valores,
+                    borderRadius: 6
+                }]
             },
-            scales: {
-                y: {
-                    grid: { color: 'rgba(255,255,255,0.05)' },
-                    ticks: { color: '#94a3b8' }
-                },
-                x: {
-                    grid: { display: false },
-                    ticks: { color: '#94a3b8' }
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
                 }
             }
-        }
-    });
+        });
+
+    } catch (error) {
+        console.error("Erro ao carregar dashboard:", error);
+    }
+    document.addEventListener("DOMContentLoaded", carregarDashboard);
 }

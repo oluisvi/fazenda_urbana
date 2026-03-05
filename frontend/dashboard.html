@@ -22,18 +22,35 @@
             </div>
             
             <nav class="menu">
-                <div class="menu-item active"><i class="ph ph-chart-pie"></i> <span>Dashboard</span></div>
-                <div class="menu-item"><i class="ph ph-plant"></i> <span>Produção</span></div>
-                <div class="menu-item"><i class="ph ph-truck"></i> <span>Fornecedores</span></div>
-                <div class="menu-item"><i class="ph ph-users"></i> <span>Clientes</span></div>
-            </nav>
+
+    <a href="dashboard.html" class="menu-item">
+        <i class="ph ph-chart-pie"></i>
+        <span>Dashboard</span>
+    </a>
+
+    <a href="producao.html" class="menu-item">
+        <i class="ph ph-plant"></i>
+        <span>Produção</span>
+    </a>
+
+    <a href="fornecedores.html" class="menu-item">
+        <i class="ph ph-truck"></i>
+        <span>Fornecedores</span>
+    </a>
+
+    <a href="clientes.html" class="menu-item">
+        <i class="ph ph-users"></i>
+        <span>Clientes</span>
+    </a>
+
+</nav>
 
             <div class="user-area">
                 <div class="user-info" id="btnUserModal">
                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Green" alt="Avatar">
                     <div class="user-text">
-                        <strong>Admin Fazenda</strong>
-                        <span>Gerente Técnico</span>
+                        <strong>Admin</strong>
+                        <span>Cargo</span>
                     </div>
                 </div>
                 <button class="btn-logout" id="btnLogoutModal">
@@ -46,71 +63,50 @@
             <header class="main-header">
                 <div>
                     <h1>Monitoramento UrbanGrow</h1>
-                    <p class="subtitle">Visão geral da unidade de produção SP-01</p>
+                    <p class="subtitle">Visão geral da unidade de produção</p>
                 </div>
-                <span class="date">📅 25 Fev, 2026</span>
+                <span class="date" id="dataAtual"></span>
             </header>
 
+            <!-- 🔥 CARDS DINÂMICOS -->
             <div class="dashboard-grid">
-                <section class="card production-card">
-                    <h2><i class="ph ph-trend-up"></i> Rendimento Semanal (Kg)</h2>
+
+                <section class="card">
+                    <h2><i class="ph ph-chart-bar"></i> Total de Produções</h2>
+                    <div style="font-size: 2rem; margin-top: 10px;">
+                        <strong id="totalProducoes">0</strong>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h2><i class="ph ph-trend-up"></i> Total Produzido (Kg)</h2>
+                    <div style="font-size: 2rem; margin-top: 10px;">
+                        <strong id="totalKg">0 Kg</strong>
+                    </div>
+                </section>
+
+                <section class="card production-card" style="grid-column: span 2;">
+                    <h2><i class="ph ph-plant"></i> Produção por Produto</h2>
                     <div class="chart-container">
                         <canvas id="productionChart"></canvas>
                     </div>
                 </section>
 
-                <section class="card list-card">
-                    <h2><i class="ph ph-package"></i> Fornecedores</h2>
-                    <div class="list">
-                        <div class="list-item">
-                            <span>BioSementes Ltda</span>
-                            <span class="status green">Ativo</span>
-                        </div>
-                        <div class="list-item">
-                            <span>HidroTech Sup.</span>
-                            <span class="status yellow">Aguardando</span>
-                        </div>
-                        <div class="list-item">
-                            <span>Fertiliza Org.</span>
-                            <span class="status green">Ativo</span>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="card list-card">
-                    <h2><i class="ph ph-shopping-cart"></i> Pedidos Recentes</h2>
-                    <div class="list">
-                        <div class="list-item">
-                            <span>Restaurante Veggie</span>
-                            <strong>R$ 1.200</strong>
-                        </div>
-                        <div class="list-item">
-                            <span>Mercado Central</span>
-                            <strong>R$ 3.450</strong>
-                        </div>
-                        <div class="list-item">
-                            <span>Natural Food Co.</span>
-                            <strong>R$ 890</strong>
-                        </div>
-                    </div>
-                </section>
             </div>
         </main>
     </div>
 
+    <!-- MODAL PERFIL -->
     <div id="userModal" class="modal-overlay">
         <div class="modal-content">
             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Green" class="modal-avatar">
             <h3>Perfil do Usuário</h3>
-            <div class="profile-detail">
-                <p><strong>Nome:</strong> Admin Fazenda Urbana</p>
-                <p><strong>Email:</strong> contato@urbanfarm.com</p>
-                <p><strong>Acesso:</strong> Total / Master</p>
-            </div>
+            <div class="profile-detail"></div>
             <button class="btn-primary" onclick="closeModal('userModal')">Fechar</button>
         </div>
     </div>
 
+    <!-- MODAL LOGOUT -->
     <div id="logoutModal" class="modal-overlay">
         <div class="modal-content logout-confirm">
             <i class="ph ph-warning-circle" style="font-size: 3rem; color: #ef4444;"></i>
@@ -123,6 +119,31 @@
         </div>
     </div>
 
+    <!-- MODAL GLOBAL DE CONFIRMAÇÃO -->
+<div id="actionModal" class="modal-overlay">
+    <div class="modal-content logout-confirm">
+        <i id="modalIcon" class="ph ph-warning-circle" style="font-size: 3rem; color: #ef4444;"></i>
+
+        <h3 id="modalTitle">Confirmar Ação</h3>
+        <p id="modalMessage">Tem certeza que deseja continuar?</p>
+
+        <div class="modal-actions">
+            <button class="btn-cancel" onclick="closeActionModal()">
+                Cancelar
+            </button>
+            <button id="modalConfirmBtn" class="btn-confirm">
+                Confirmar
+            </button>
+        </div>
+    </div>
+</div>
+
+    <script>
+        // Atualiza data automática
+        const dataEl = document.getElementById("dataAtual");
+        const hoje = new Date();
+        dataEl.textContent = "📅 " + hoje.toLocaleDateString("pt-BR");
+    </script>
 
     <script src="script.js"></script>
 </body>

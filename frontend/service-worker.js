@@ -1,4 +1,4 @@
-const CACHE_NAME = "pim-cache-v1";
+const CACHE_NAME = "pim-cache-v2";
 
 const urlsToCache = [
   "/",
@@ -6,6 +6,16 @@ const urlsToCache = [
   "/dashboard.html",
   "/style.css",
   "/script.js"
+  "/producao.html"
+  "/producao.css"
+  "/producao.js"
+  "/fornecedores.html"
+  "/fornecedores.css"
+  "/fornecedores.js"
+  "/clientes.html"
+  "/clientes.css"
+  "/clientes.js"
+
 ];
 
 self.addEventListener("install", event => {

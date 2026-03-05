@@ -132,6 +132,10 @@ body {
 }
 
 .menu { flex: 1; }
+.menu a {
+    text-decoration: none;
+    color: inherit;
+}
 .menu-item {
     display: flex;
     align-items: center;

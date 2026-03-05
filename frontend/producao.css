@@ -1,0 +1,142 @@
+/* =====================================================
+   PRODUÇÃO - FORMULÁRIO
+===================================================== */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.card h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--emerald);
+}
+
+/* Ajuste fino dos inputs dentro do card de produção */
+.card input {
+    font-size: 0.95rem;
+}
+
+/* =====================================================
+   BOTÃO DO FORM
+===================================================== */
+
+.card .btn-primary {
+    margin-top: 2rem;
+    max-width: 250px;
+}
+
+/* =====================================================
+   TABELA DE PRODUÇÃO
+===================================================== */
+
+.table-wrapper {
+    margin-top: 1.5rem;
+    overflow-x: auto;
+}
+
+.tabela-producao {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.tabela-producao thead {
+    background: rgba(16, 185, 129, 0.08);
+}
+
+.tabela-producao th {
+    text-align: left;
+    padding: 14px;
+    font-weight: 600;
+    color: var(--emerald);
+    border-bottom: 1px solid var(--border);
+}
+
+.tabela-producao td {
+    padding: 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-white);
+}
+
+.tabela-producao tbody tr {
+    transition: 0.2s;
+}
+
+.tabela-producao tbody tr:hover {
+    background: rgba(255,255,255,0.03);
+}
+
+/* =====================================================
+   BOTÕES DE AÇÃO (EDITAR / EXCLUIR)
+===================================================== */
+
+.btn-action {
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-edit {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--emerald);
+}
+
+.btn-edit:hover {
+    background: var(--emerald);
+    color: #000;
+}
+
+.btn-delete {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+.btn-delete:hover {
+    background: #ef4444;
+    color: white;
+}
+
+/* =====================================================
+   RESPONSIVIDADE (ALINHADA COM GLOBAL)
+===================================================== */
+
+/* TABLETS */
+@media (max-width: 1024px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* CELULAR */
+@media (max-width: 768px) {
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card .btn-primary {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .tabela-producao th,
+    .tabela-producao td {
+        padding: 10px;
+        font-size: 0.8rem;
+    }
+}
+
+/* TELAS GIGANTES */
+@media (min-width: 1600px) {
+    .form-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

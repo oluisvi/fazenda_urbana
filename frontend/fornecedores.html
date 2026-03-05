@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanFarm OS | Fornecedores</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fornecedores.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+
+<body>
+
+    <!-- MODAL GLOBAL DE CONFIRMAÇÃO -->
+    <div id="actionModal" class="modal-overlay">
+        <div class="modal-content logout-confirm">
+            <i id="modalIcon" class="ph ph-warning-circle" style="font-size: 3rem; color: #ef4444;"></i>
+
+            <h3 id="modalTitle">Confirmar Ação</h3>
+            <p id="modalMessage">Tem certeza que deseja continuar?</p>
+
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeActionModal()">
+                    Cancelar
+                </button>
+                <button id="modalConfirmBtn" class="btn-confirm">
+                    Confirmar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTÃO MOBILE -->
+    <button class="mobile-menu-toggle" id="menuToggle">
+        <i class="ph ph-list"></i>
+    </button>
+
+    <div class="container">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="logo">
+                <i class="ph ph-leaf"></i>
+                <span>UrbanFarm</span>
+            </div>
+            
+            <nav class="menu">
+
+                <a href="dashboard.html" class="menu-item">
+                    <i class="ph ph-chart-pie"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="producao.html" class="menu-item">
+                    <i class="ph ph-plant"></i>
+                    <span>Produção</span>
+                </a>
+
+                <a href="fornecedores.html" class="menu-item active">
+                    <i class="ph ph-truck"></i>
+                    <span>Fornecedores</span>
+                </a>
+
+                <a href="clientes.html" class="menu-item">
+                    <i class="ph ph-users"></i>
+                    <span>Clientes</span>
+                </a>
+
+            </nav>
+
+            <div class="user-area">
+                <div class="user-info" id="btnUserModal">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Green" alt="Avatar">
+                    <div class="user-text">
+                        <strong>Admin Fazenda</strong>
+                        <span>Gerente Técnico</span>
+                    </div>
+                </div>
+                <button class="btn-logout" id="btnLogoutModal">
+                    <i class="ph ph-sign-out"></i> <span>Sair</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- CONTEÚDO -->
+        <main class="content">
+
+            <header class="main-header">
+                <div>
+                    <h1>Gestão de Fornecedores</h1>
+                    <p class="subtitle">Cadastre, edite e controle seus fornecedores</p>
+                </div>
+                <span class="date" id="dataAtual"></span>
+            </header>
+
+            <!-- FORM -->
+            <section class="card">
+                <h2><i class="ph ph-plus-circle"></i> Novo Fornecedor</h2>
+
+                <form id="formFornecedores" style="margin-top: 1.5rem;">
+                    <input type="hidden" id="fornecedorId">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label>Nome</label>
+                            <input type="text" id="nome" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>CNPJ</label>
+                            <input type="text" id="cnpj">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Telefone</label>
+                            <input type="text" id="telefone">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="email">
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        Salvar Fornecedor
+                    </button>
+                </form>
+            </section>
+
+            <!-- TABELA -->
+            <section class="card">
+                <h2><i class="ph ph-table"></i> Fornecedores Cadastrados</h2>
+
+                <div class="table-wrapper">
+                    <table class="tabela-fornecedores">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>CNPJ</th>
+                                <th>Telefone</th>
+                                <th>Email</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaFornecedores"></tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- MODAL PERFIL -->
+    <div id="userModal" class="modal-overlay">
+        <div class="modal-content">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Green" class="modal-avatar">
+            <h3>Perfil do Usuário</h3>
+            <div class="profile-detail"></div>
+            <button class="btn-primary" onclick="closeModal('userModal')">Fechar</button>
+        </div>
+    </div>
+
+    <!-- MODAL LOGOUT -->
+    <div id="logoutModal" class="modal-overlay">
+        <div class="modal-content logout-confirm">
+            <i class="ph ph-warning-circle" style="font-size: 3rem; color: #ef4444;"></i>
+            <h3>Deseja sair do sistema?</h3>
+            <p>Sua sessão será encerrada com segurança.</p>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeModal('logoutModal')">Cancelar</button>
+                <button class="btn-confirm" onclick="confirmLogout()">Sim, Sair</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="crudBase.js"></script>
+    <script src="fornecedores.js"></script>
+
+    <script>
+        const hoje = new Date();
+        document.getElementById("dataAtual").innerText =
+            hoje.toLocaleDateString("pt-BR");
+    </script>
+
+</body>
+</html>
