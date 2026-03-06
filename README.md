@@ -5,6 +5,10 @@
 Sistema desenvolvido para gerenciamento de uma fazenda urbana, permitindo o controle de produção, clientes e fornecedores.
 O projeto foi desenvolvido como parte do Projeto Integrador Multidisciplinar (PIM) utilizando tecnologias web e também possui uma versão desktop utilizando Electron.
 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 📌 Funcionalidades
 
 O sistema possui um dashboard e módulos de gestão:
@@ -37,6 +41,9 @@ Cadastro de fornecedores
 
 Gerenciamento de informações de contato
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 🧰 Tecnologias Utilizadas
 Frontend
 
@@ -68,6 +75,9 @@ Service Worker
 
 Manifest
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 📂 Estrutura do Projeto
 fazenda_urbana
 │
@@ -89,9 +99,10 @@ fazenda_urbana
 │   └── service-worker.js
 │
 └── database
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 ⚙️ Como Rodar o Projeto
 1️⃣ Clonar o repositório
-git clone https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git
+git clone https://github.com/oluisvi/fazenda_urbana.git
 2️⃣ Instalar dependências
 
 Entre na pasta backend:
@@ -125,18 +136,6 @@ Funcionamento como aplicativo
 
 Uso offline parcial
 
-👨‍💻 Autor
-
-Luis Henrique Vieira
-
-GitHub
-https://github.com/oluisvi
-
-LinkedIn
-https://linkedin.com/in/oluisvi
-
-Portfólio
-https://oluisviportifolio.vercel.app
 
 📄 Licença
 
