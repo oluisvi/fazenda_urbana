@@ -215,7 +215,7 @@ async function carregarDashboard() {
 
     try {
 
-        const response = await fetch("http://localhost:3000/dashboard");
+        const response = await fetch("/dashboard");
         const data = await response.json();
 
         const totalProducoesEl = document.getElementById("totalProducoes");
