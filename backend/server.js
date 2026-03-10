@@ -2,20 +2,40 @@ const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+// =====================================
 // 🔥 SERVIR FRONTEND
+// =====================================
+
 console.log("Diretório atual:", __dirname);
 
 const frontendPath = path.join(__dirname, "..", "frontend");
 
 app.use(express.static(frontendPath));
 
-const db = new sqlite3.Database('./database.db');
+app.get("/", (req, res) => {
+  res.sendFile(path.join(frontendPath, "index.html"));
+});
+
+
+// =====================================
+// 💾 BANCO SQLITE (SUPORTE RENDER)
+// =====================================
+
+let dbPath = "./database.db";
+
+// se existir disco persistente no Render
+if (fs.existsSync("/data")) {
+  dbPath = "/data/database.db";
+}
+
+const db = new sqlite3.Database(dbPath);
 
 
 // =====================================
@@ -281,6 +301,8 @@ app.delete("/clientes/:id", (req, res) => {
 // 🚀 START SERVIDOR
 // =====================================
 
-app.listen(3000, "0.0.0.0", () => {
-  console.log("Servidor rodando...");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log("Servidor rodando na porta " + PORT);
 });
