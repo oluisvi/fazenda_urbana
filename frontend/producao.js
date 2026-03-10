@@ -2,7 +2,7 @@
 // 🌐 CONFIG
 // =======================================
 
-const API_URL = "http://localhost:3000/producao";
+const API_URL = "/producao";
 const producaoAPI = createCrud(API_URL);
 
 const form = document.getElementById("formProducao");
