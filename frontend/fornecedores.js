@@ -2,7 +2,7 @@
 // 🌐 CONFIG
 // =======================================
 
-const API_URL = "http://localhost:3000/fornecedores";
+const API_URL = "/fornecedores";
 const fornecedoresAPI = createCrud(API_URL);
 
 document.addEventListener("DOMContentLoaded", () => {
