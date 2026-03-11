@@ -173,6 +173,17 @@ app.get("/producao", (req, res) => {
   });
 });
 
+app.get("/producao/:id", (req, res) => {
+  db.get(
+    "SELECT * FROM producao WHERE id = ?",
+    [req.params.id],
+    (err, row) => {
+      if (err) return res.status(500).json(err);
+      res.json(row);
+    }
+  );
+});
+
 app.post("/producao", (req, res) => {
   const { data, cultura, quantidade, observacao } = req.body;
 
@@ -218,6 +229,17 @@ app.get("/fornecedores", (req, res) => {
   });
 });
 
+app.get("/fornecedores/:id", (req, res) => {
+  db.get(
+    "SELECT * FROM fornecedores WHERE id = ?",
+    [req.params.id],
+    (err, row) => {
+      if (err) return res.status(500).json(err);
+      res.json(row);
+    }
+  );
+});
+
 app.post("/fornecedores", (req, res) => {
   const { nome, cnpj, telefone, email } = req.body;
 
@@ -261,6 +283,17 @@ app.get("/clientes", (req, res) => {
     if (err) return res.status(500).json(err);
     res.json(rows);
   });
+});
+
+app.get("/clientes/:id", (req, res) => {
+  db.get(
+    "SELECT * FROM clientes WHERE id = ?",
+    [req.params.id],
+    (err, row) => {
+      if (err) return res.status(500).json(err);
+      res.json(row);
+    }
+  );
 });
 
 app.post("/clientes", (req, res) => {
