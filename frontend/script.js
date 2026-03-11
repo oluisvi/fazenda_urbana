@@ -227,7 +227,7 @@ async function carregarDashboard() {
         if (totalKgEl)
             totalKgEl.textContent = data.totalKg + " Kg";
 
-        const labels = data.porProduto.map(p => p.produto || "Sem nome");
+        const labels = data.porProduto.map(p => p.cultura || "Sem nome");
         const valores = data.porProduto.map(p => p.total);
 
         const ctx = chartElement.getContext("2d");
