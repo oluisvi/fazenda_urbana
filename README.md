@@ -1,84 +1,127 @@
-.
+# 🌱 UrbanFarm – Sistema de Gestão para Fazenda Urbana
 
-🌱 UrbanFarm – Sistema de Gestão para Fazenda Urbana
+UrbanFarm é um sistema web desenvolvido para gerenciamento de uma fazenda urbana, permitindo o controle de produção agrícola, clientes e fornecedores.
 
-Sistema desenvolvido para gerenciamento de uma fazenda urbana, permitindo o controle de produção, clientes e fornecedores.
-O projeto foi desenvolvido como parte do Projeto Integrador Multidisciplinar (PIM) utilizando tecnologias web e também possui uma versão desktop utilizando Electron.
+O projeto foi desenvolvido como parte do **Projeto Integrador Multidisciplinar (PIM)** e utiliza tecnologias web modernas, além de possuir uma **versão desktop construída com Electron**.
 
+---
 
---------------------------------------------------------------------------------------------------------------------------------------------------------
+# 🌐 Demonstração Online
 
+O sistema pode ser acessado online através do link:
 
-📌 Funcionalidades
+https://fazenda-urbana.onrender.com/
 
-O sistema possui um dashboard e módulos de gestão:
+---
 
-📊 Dashboard
+# 📌 Funcionalidades
 
-Visualização geral do sistema
+O sistema possui um dashboard e módulos de gestão que permitem acompanhar e administrar as operações da fazenda urbana.
 
-Indicadores de produção
+## 📊 Dashboard
 
-Acesso rápido aos módulos
+O dashboard apresenta uma visão geral do sistema:
 
-👤 Clientes
+* Total de produções registradas
+* Quantidade total produzida (Kg)
+* Gráfico de produção por cultura
+* Acesso rápido aos módulos do sistema
 
-Cadastro de clientes
+## 🚜 Produção
 
-Listagem de clientes
+* Registro da produção agrícola
+* Controle de culturas produzidas
+* Registro da quantidade produzida por data
+* Histórico completo de produção
 
-Edição e exclusão de registros
+## 👤 Clientes
 
-🚜 Produção
+* Cadastro de clientes
+* Listagem de clientes
+* Edição de registros
+* Exclusão de registros
 
-Registro da produção agrícola
+## 📦 Fornecedores
 
-Acompanhamento da produção
+* Cadastro de fornecedores
+* Gerenciamento de informações de contato
+* Atualização de registros
+* Exclusão de fornecedores
 
-📦 Fornecedores
+---
 
-Cadastro de fornecedores
+# 🔐 Autenticação
 
-Gerenciamento de informações de contato
+O sistema possui controle de acesso com login de usuários.
 
---------------------------------------------------------------------------------------------------------------------------------------------------------
+Usuários padrão são criados automaticamente ao iniciar o sistema:
 
+**Administrador**
+email: [admin@admin.com](mailto:admin@admin.com)
+senha: 1234
 
-🧰 Tecnologias Utilizadas
-Frontend
+**Usuário padrão**
+email: [user@user.com](mailto:user@user.com)
+senha: 1234
 
-HTML5
+---
 
-CSS3
+# 🧰 Tecnologias Utilizadas
 
-JavaScript
+## Frontend
 
-Backend
+* HTML5
+* CSS3
+* JavaScript
 
-Node.js
+## Backend
 
-Express
+* Node.js
+* Express
 
-Banco de Dados
+## Banco de Dados
 
-SQLite3
+* SQLite3
 
-Desktop
+## Desktop
 
-Electron
+* Electron
 
-Outras tecnologias
+## Outras Tecnologias
 
-PWA (Progressive Web App)
+* PWA (Progressive Web App)
+* Service Worker
+* Web App Manifest
 
-Service Worker
+---
 
-Manifest
+# 🏗 Arquitetura do Sistema
 
---------------------------------------------------------------------------------------------------------------------------------------------------------
+O sistema utiliza uma arquitetura **Full Stack JavaScript**.
 
+O backend desenvolvido em **Node.js com Express** também é responsável por servir os arquivos do frontend, permitindo que toda a aplicação funcione em um único servidor.
 
-📂 Estrutura do Projeto
+Além disso, o backend expõe uma **API REST** responsável pelo gerenciamento de:
+
+* Produção
+* Clientes
+* Fornecedores
+* Dashboard
+* Autenticação de usuários
+
+---
+
+# 💾 Banco de Dados
+
+O sistema utiliza **SQLite3** como banco de dados.
+
+Em ambiente de produção (Render), o banco é armazenado em **disco persistente**, garantindo que os dados não sejam perdidos após reinicialização do servidor.
+
+---
+
+# 📂 Estrutura do Projeto
+
+```
 fazenda_urbana
 │
 ├── backend
@@ -98,45 +141,70 @@ fazenda_urbana
 │   ├── manifest.json
 │   └── service-worker.js
 │
-└── database
---------------------------------------------------------------------------------------------------------------------------------------------------------
-⚙️ Como Rodar o Projeto
-1️⃣ Clonar o repositório
+└── database.db
+```
+
+---
+
+# ⚙️ Como Rodar o Projeto
+
+## 1️⃣ Clonar o repositório
+
+```bash
 git clone https://github.com/oluisvi/fazenda_urbana.git
-2️⃣ Instalar dependências
+```
+
+---
+
+## 2️⃣ Instalar dependências
 
 Entre na pasta backend:
 
+```bash
 cd backend
 npm install
-3️⃣ Rodar o sistema
+```
 
-Para abrir a versão desktop:
+---
 
+## 3️⃣ Rodar o sistema
+
+Para abrir a **versão desktop com Electron**:
+
+```bash
 npm start
+```
 
 O Electron abrirá o sistema automaticamente.
 
-🌐 Executar apenas o servidor
+---
+
+# 🌐 Executar apenas o servidor
 
 Caso queira rodar apenas o backend:
 
+```bash
 node server.js
+```
 
 Depois abra no navegador:
 
+```
 http://localhost:3000
-📱 Progressive Web App (PWA)
+```
 
-O sistema também pode ser executado como aplicação web instalável, permitindo:
+---
 
-Instalação no celular
+# 📱 Progressive Web App (PWA)
 
-Funcionamento como aplicativo
+O sistema também pode ser executado como **aplicação web instalável**, permitindo:
 
-Uso offline parcial
+* Instalação no celular
+* Funcionamento como aplicativo
+* Uso offline parcial através de Service Worker
 
+---
 
-📄 Licença
+# 📄 Licença
 
-Este projeto foi desenvolvido para fins acadêmicos como parte do Projeto Integrador Multidisciplinar (PIM).
+Este projeto foi desenvolvido para fins acadêmicos como parte do **Projeto Integrador Multidisciplinar (PIM)**.
